@@ -17,7 +17,8 @@
                 <v-list-item
                     :title="props.title"
                     :value="props.value"
-                    @contextmenu.prevent="console.log('>> Right Click !')"
+                    @contextmenu.prevent="console.log('>> Right Click on File !')"
+                    @click="console.log('>> Selected for opening !')"
                 >
                 <template #title>
                         <div
@@ -29,6 +30,15 @@
                         <span class="git-status">{{ props.gitStatus }}</span>
                     </template>
                 </v-list-item>
+            </template>
+            <template #header="{ props }">
+                <v-list-item
+                    active-class="v-list-group__header"
+                    :title="props.title"
+                    :value="props.value"
+                    @click="toggleDir(props.value)"
+                    @contextmenu.prevent="console.log('>> Right Click on Directory !')"
+                ></v-list-item>
             </template>
         </v-list>
         <div class="text-blue-grey-lighten-4">
@@ -49,6 +59,15 @@ import { ref } from 'vue';
 const open = ref([]);
 
 const select = ref([]);
+
+const toggleDir = function toggleDir(value) {
+    const ndx = open.value.findIndex((x) => x === value);
+    if (ndx < 0) {
+        open.value.push(value);
+    } else {
+        open.value.splice(ndx, 1);
+    }
+};
 
 // Array must be fetched with right alphabetical order
 // Use default keys understood by v-list
