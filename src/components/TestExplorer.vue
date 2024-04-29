@@ -8,7 +8,29 @@
             theme="light"
             density="compact"
             :items="treeData"
-        ></v-list>
+            collapse-icon="mdi-folder-open-outline"
+            expand-icon="mdi-folder-outline"
+            slim
+            item-props
+        >
+            <template #item="{ props }">
+                <v-list-item
+                    :title="props.title"
+                    :value="props.value"
+                    @contextmenu.prevent="console.log('>> Right Click !')"
+                >
+                <template #title>
+                        <div
+                            class="v-list-item-title"
+                            :class="{ edited: props.edited, 'text-teal': props.edited, 'text-decoration-line-through': props.gitStatus === 'D' }"
+                        >{{ props.title }}</div>
+                    </template>
+                    <template #append>
+                        <span class="git-status">{{ props.gitStatus }}</span>
+                    </template>
+                </v-list-item>
+            </template>
+        </v-list>
         <div>
             <h3>Opened hierarchy</h3>
             {{ open }}
@@ -33,12 +55,12 @@ const select = ref([]);
 const treeData = ref([{
     title: 'hello',
     value: 'hello',
-    gitStatus: '',
-    edited: false,
+    gitStatus: 'M',
+    edited: true,
 }, {
     title: 'world',
     value: 'world',
-    gitStatus: '',
+    gitStatus: 'U',
     edited: false,
 }, {
     title: 'dir1',
@@ -49,7 +71,7 @@ const treeData = ref([{
         children: [{
             title: 'hello',
             value: 'dir1/dir2/hello',
-            gitStatus: '',
+            gitStatus: 'D',
             edited: false,
         }, {
             title: 'world',
@@ -88,5 +110,12 @@ const treeData = ref([{
 <style scoped>
 .extra-height {
     height: 2000px;
+}
+.edited {
+    font-weight: bold;
+}
+.git-status {
+    font-size: 0.8rem;
+    font-weight: bold;
 }
 </style>
