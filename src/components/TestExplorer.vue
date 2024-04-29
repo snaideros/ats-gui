@@ -31,11 +31,11 @@
                 </v-list-item>
             </template>
         </v-list>
-        <div>
+        <div class="text-blue-grey-lighten-4">
             <h3>Opened hierarchy</h3>
             {{ open }}
         </div>
-        <div>
+        <div class="text-blue-grey-lighten-4">
             <h3>Selected File</h3>
             {{ select }}
         </div>
