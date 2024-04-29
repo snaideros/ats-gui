@@ -5,7 +5,7 @@
     </v-app-bar>
 
     <v-main>
-      <router-view />
+      <TestEditor />
     </v-main>
 
     <AppFooter />
