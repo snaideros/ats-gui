@@ -12,7 +12,7 @@
                         </div>
                     </v-col>
                     <v-col cols="10" class="bg-blue rel">
-                        <div class="bg-lime pa-1 abs">
+                        <div class="bg-lime ma-1 pa-0 abs">
                             <IDE/>
                         </div>
                     </v-col>
@@ -27,16 +27,16 @@
 </script>
   
 <style>
-  .rel {
+.rel {
     position: relative;
-  }
-  
-  .abs {
+}
+
+.abs {
     position:absolute;
     top:0;
     left:0;
     right:0;
     bottom:0;
-  }
+}
 </style>
   

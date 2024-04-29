@@ -7,7 +7,9 @@
   import { LoremIpsum } from "lorem-ipsum";
   import { ref, onMounted } from 'vue';
 
-  const ide = ref();
+  // Reference to the #ide DOM element
+  const ide = ref(null);
+
   const lorem = new LoremIpsum({
     sentencesPerParagraph: {
       max: 8,
@@ -18,17 +20,37 @@
       min: 4
     }
   });
-  const text = lorem.generateParagraphs(120);
+
+  let editor;
+  const setIdeSize = function setIdeSize() {
+    editor.layout({
+      width: ide.value.offsetWidth,
+      height: ide.value.offsetHeight,
+    });
+  };
+
+  monaco.editor.onDidCreateEditor(() => {
+    setTimeout(setIdeSize,0);
+  });
 
   onMounted(() => {
-  monaco.editor.create(ide.value, {
-    value: text,
-  })
-});
+    editor = monaco.editor.create(
+      ide.value,
+      {
+        value: lorem.generateParagraphs(120),
+      },
+    );
+    window.addEventListener('resize', setIdeSize)
+  });
 </script>
 
 <style scoped>
 #ide {
   height: 100%;
+  position:absolute;
+  top:0;
+  left:0;
+  right:0;
+  bottom:0;
 }
 </style>
