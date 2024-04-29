@@ -1,57 +1,83 @@
 <template>
-    <div class="bg-orange">
-        <ul>
-            <TreeItem
-                class="item"
-                v-for="model in treeData"
-                :model="model">
-            </TreeItem>
-        </ul>
+    <div class="bg-white extra-height">
+        <v-list
+            v-model:opened="open"
+            open-strategy="multiple"
+            v-model:selected="select"
+            select-strategy="single-leaf"
+            theme="light"
+            density="compact"
+            :items="treeData"
+        ></v-list>
+        <div>
+            <h3>Opened hierarchy</h3>
+            {{ open }}
+        </div>
+        <div>
+            <h3>Selected File</h3>
+            {{ select }}
+        </div>
     </div>
 </template>
 
 <script setup>
-// Tree from https://vuejs.org/examples/#tree
 // Right click from https://vuejs.org/examples/#circle-drawer
 import { ref } from 'vue';
 
+const open = ref([]);
+
+const select = ref([]);
+
+// Array must be fetched with right alphabetical order
+// Use default keys understood by v-list
 const treeData = ref([{
-    name: 'hello',
+    title: 'hello',
+    value: 'hello',
     gitStatus: '',
     edited: false,
 }, {
-    name: 'world',
+    title: 'world',
+    value: 'world',
     gitStatus: '',
     edited: false,
 }, {
-    name: 'child folder',
+    title: 'dir1',
+    value: 'dir1',
     children: [{
-        name: 'child folder',
+        title: 'dir2',
+        value: 'dir1/dir2',
         children: [{
-            name: 'hello',
+            title: 'hello',
+            value: 'dir1/dir2/hello',
             gitStatus: '',
             edited: false,
         }, {
-            name: 'world',
+            title: 'world',
+            value: 'dir1/dir2/world',
             gitStatus: '',
             edited: false,
         }]
     }, {
-        name: 'hello',
+        title: 'hello',
+        value: 'dir1/hello',
         gitStatus: '',
         edited: false,
     }, {
-        name: 'world',
+        title: 'world',
+        value: 'dir1/world',
         gitStatus: '',
         edited: false,
     }, {
-        name: 'child folder',
+        title: 'dir3',
+        value: 'dir1/dir3',
         children: [{
-            name: 'hello',
+            title: 'hello',
+            value: 'dir1/dir3/hello',
             gitStatus: '',
             edited: false,
         }, {
-            name: 'world',
+            title: 'world',
+            value: 'dir1/dir3/world',
             gitStatus: '',
             edited: false,
         }],
@@ -60,4 +86,7 @@ const treeData = ref([{
 </script>
 
 <style scoped>
+.extra-height {
+    height: 2000px;
+}
 </style>
