@@ -2,7 +2,12 @@
     <v-container class="bg-cyan fill-height pa-0" fluid>
         <v-row class="flex-column bg-pink fill-height" no-gutters>
             <v-col class="bg-deep-purple flex-shrink-1 flex-grow-0">
-                <v-breadcrumbs class="bg-yellow"></v-breadcrumbs>
+                <v-breadcrumbs class="bg-yellow py-1" density="compact" :items="['Foo', 'Bar', 'Fizz']">
+                    <template v-slot:prepend>
+                        <v-icon icon="mdi-home" size="small"></v-icon>
+                        <v-breadcrumbs-divider />
+                    </template>
+                </v-breadcrumbs>
             </v-col>
             <v-col class="bg-indigo">
                 <v-row class="bg-purple fill-height" no-gutters>
